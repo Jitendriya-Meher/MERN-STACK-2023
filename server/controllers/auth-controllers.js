@@ -12,6 +12,8 @@ const home = async() => {
 const register = async (req, res) => {
     
     try{
+        console.log(res.body);
+        
         res.status(200).send("Welcome to Auth Resister page using routes");
     }
     catch(err){
