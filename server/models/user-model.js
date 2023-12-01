@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
     username:{
@@ -23,6 +24,28 @@ const userSchema = new mongoose.Schema({
         default:false,
     }
 });
+
+// secure password with bcrypt
+
+userSchema.pre('save',async function(next){
+
+    console.log("pre method save ",this);
+    const user = this;
+
+    if( !user.isModified("password") ){
+        next();
+    }
+
+    try{
+        const saltRound = await bcrypt.genSalt(10);
+        
+        const hash_password = await bcrypt.hash(user.password, saltRound);
+        user.password = hash_password;
+    }
+    catch(err){
+        next(err);
+    }
+})
 
 const User = new mongoose.model("User",userSchema);
 module.exports = User;
