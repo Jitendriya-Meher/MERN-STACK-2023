@@ -32,9 +32,6 @@ const Register = () => {
   return (
     <>
       <section>
-      <h1 className="">
-        register User
-      </h1>
         <main>
           <div className="section-registration">
             <div className="container grid grid-two-cols">
