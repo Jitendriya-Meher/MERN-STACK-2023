@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save',async function(next){
 
     // console.log("pre method save ",this);
-    
+
     const user = this;
 
     if( !user.isModified("password") ){
@@ -67,8 +67,12 @@ userSchema.methods.generateToken = async function(){
     catch(err){
         console.log("error generating in token",err);
     }
-
 };
+
+//compare password
+userSchema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password,this.password);
+}
 
 const User = new mongoose.model("User",userSchema);
 module.exports = User;
