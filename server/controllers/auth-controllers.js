@@ -65,7 +65,7 @@ const login = async (req, res) => {
         
         const userExits = await User.findOne({email});
 
-        console.log("userExits", userExits);
+        // console.log("userExits", userExits);
 
         if( !userExits){
             return res.status(404).json({
