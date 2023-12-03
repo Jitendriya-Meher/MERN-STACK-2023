@@ -7,6 +7,7 @@ import Service from "./pages/Service";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/service" element={<Service></Service>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="*" element={<NotFound></NotFound>}></Route>
 
       </Routes>
     </div>

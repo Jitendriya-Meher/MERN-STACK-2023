@@ -9,3 +9,8 @@ ul{
     display: flex;
     gap: 3.2rem;
 }
+
+nav li a:hover,
+nav li a.active {
+    color: white;
+}
