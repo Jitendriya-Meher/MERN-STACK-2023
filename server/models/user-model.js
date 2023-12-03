@@ -1,6 +1,9 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const userSchema = new mongoose.Schema({
     username:{
@@ -26,10 +29,10 @@ const userSchema = new mongoose.Schema({
 });
 
 // secure password with bcrypt
-
 userSchema.pre('save',async function(next){
 
-    console.log("pre method save ",this);
+    // console.log("pre method save ",this);
+    
     const user = this;
 
     if( !user.isModified("password") ){
@@ -45,7 +48,27 @@ userSchema.pre('save',async function(next){
     catch(err){
         next(err);
     }
-})
+});
+
+// json web token
+userSchema.methods.generateToken = async function(){
+
+    try{
+        return jwt.sign({
+            userId: this._id.toString(),
+            email: this.email,
+            isAdmin: this.isAdmin, 
+        },
+        process.env.JWY_SECRET_KEY,{
+            expiresIn:"2d",
+        }
+        );
+    }
+    catch(err){
+        console.log("error generating in token",err);
+    }
+
+};
 
 const User = new mongoose.model("User",userSchema);
 module.exports = User;

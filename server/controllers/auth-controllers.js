@@ -20,7 +20,7 @@ const register = async (req, res) => {
         // check user already registered or not 
         const userExists = await User.findOne({
             email: email
-        });
+        }); 
 
         if(userExists){
             return res.status(400).json({
@@ -40,15 +40,19 @@ const register = async (req, res) => {
             password
         });
 
+        const token = await user.generateToken();
+
         return res.status(200).json({
-            user
+            msg:"user created successfully",
+            token,
+            userId: user._id.toString(),
         });
 
     }
     catch(err){
         res.status(400).json({
-            msg:"Welcome to Auth Resister page using routes !!! page not found",
-            error: err
+            msg:"error in user creation",
+            error: err.message
         });
     }
 }
