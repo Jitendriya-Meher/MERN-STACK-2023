@@ -6,11 +6,13 @@ import Contact from "./pages/Contact";
 import Service from "./pages/Service";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div className="">
 
+      <Navbar></Navbar>
 
       <Routes>
 
