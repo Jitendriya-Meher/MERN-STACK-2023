@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
@@ -8,6 +9,7 @@ const Register = () => {
         phone: "",
         password: "",
     });
+    const navigate = useNavigate();
 
     const handleInput = (e) => {
 
@@ -22,11 +24,31 @@ const Register = () => {
         ));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
         console.log("user data :",user);
-        alert(user.username);
+        // alert(user.username);
+
+        try{
+          const response = await fetch(`http://localhost:5000/api/auth/register`,{
+            method: 'POST',
+            headers:{
+              "Content-Type": "application/json"
+            },
+            body:JSON.stringify(user)
+          });
+
+          console.log("response",response);
+
+          const data = await response.json();
+          console.log("data",data);
+
+          navigate("/login");
+        }
+        catch(err){
+          console.log(err.message);
+        }
     }
     
   return (

@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 const authRoute = require('./router/auth-router.js');
 const contactRoute = require("./router/contact-router.js");
@@ -9,6 +10,7 @@ const errorMiddleware = require("./middlewares/error-middleware.js")
 
 // middleware
 app.use(express.json());
+app.use(cors());
 
 //mounting
 app.use("/api/auth", authRoute);
@@ -24,5 +26,5 @@ connectDB().then( () => {
     });
 }).catch((err) => {
     console.log("error: " , err);
-})
+});
 

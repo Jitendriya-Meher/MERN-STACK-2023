@@ -69,7 +69,7 @@ const login = async (req, res) => {
 
         if( !userExits){
             return res.status(404).json({
-                msg:"user font found ! register first"
+                msg:"user not found ! register first"
             });
         }
 
