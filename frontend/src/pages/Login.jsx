@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 
 const Login = () => {
@@ -7,6 +8,7 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const {storeTokenInLS} = useAuth();
 
   const navigate = useNavigate();
 
@@ -38,6 +40,8 @@ const Login = () => {
 
       const data = await response.json();
       console.log("data",data);
+
+      storeTokenInLS(data.token);
 
       navigate("/");
     }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../store/auth';
 
 const Register = () => {
 
@@ -10,6 +11,7 @@ const Register = () => {
         password: "",
     });
     const navigate = useNavigate();
+    const {storeTokenInLS} = useAuth();
 
     const handleInput = (e) => {
 
@@ -43,6 +45,8 @@ const Register = () => {
 
           const data = await response.json();
           console.log("data",data);
+
+          storeTokenInLS(data.token);
 
           navigate("/login");
         }
