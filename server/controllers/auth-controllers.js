@@ -101,4 +101,24 @@ const login = async (req, res) => {
 
 }
 
-module.exports = {home,register,login};
+const user = async (req, res) => {
+
+    try{
+        const userData = req.user;
+        console.log("userData", userData);
+
+        return res.status(200).json({
+            msg:userData
+        });
+
+    }
+    catch(err){
+        return res.status(500).json({
+            msg:"error in getting user info",
+            error:err.message
+        })
+    }
+
+}
+
+module.exports = {home,register,login,user};
