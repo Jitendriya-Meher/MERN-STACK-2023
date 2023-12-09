@@ -1,7 +1,11 @@
 import React from 'react'
 import Analytics from '../components/Analytics'
+import { useAuth } from '../store/auth'
 
 const Home = () => {
+
+  const {user,isLoggedIn} = useAuth();
+
   return (
     <>
     <main>
@@ -9,7 +13,7 @@ const Home = () => {
         <div className="container grid grid-two-cols">
           <div className="hero-content">
             <p>We are the World Best IT Company</p>
-            <h1>Welcome to Jiksss... Technical</h1>
+            <h1>Welcome to Jiksss... Technical {isLoggedIn ? `${user.username}` : ""}</h1>
             <p>
               Are you ready to take your business to the next level with
               cutting-edge IT solutions? Look no further! At Thapa Technical,
