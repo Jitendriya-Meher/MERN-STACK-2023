@@ -6,11 +6,13 @@ const Contact = () => {
 
   const {user} = useAuth();
 
-  const [contact, setContact] = useState({
+  const defaultContactFormData = {
     username: "",
     email: "",
     message: "",
-  });
+  };
+
+  const [contact, setContact] = useState(defaultContactFormData);
 
   const [userData, setUserData] = useState(true);
 
@@ -36,10 +38,35 @@ const Contact = () => {
   };
 
   // handle fomr getFormSubmissionInfo
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
-    console.log(contact);
+    try {
+      const response = await fetch("http://localhost:5000/api/form/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      });
+
+      console.log("response: ", response);
+      // alert(response);
+
+      if (response.ok) {
+        setContact(defaultContactFormData);
+        const responseData = await response.json();
+        alert(responseData);
+        console.log(responseData);
+      } else {
+        // Handle API error here
+        console.error("API Error:", response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    // console.log(contact);
   };
 
 //  Help me reach 1 Million subs 👉 https://youtube.com/thapatechnical

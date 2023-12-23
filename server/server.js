@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const authRoute = require('./router/auth-router.js');
 const contactRoute = require("./router/contact-router.js");
+const serviceRoute = require("./router/service-router.js");
 
 const connectDB = require("./utils/db.js");
 const errorMiddleware = require("./middlewares/error-middleware.js")
@@ -15,6 +16,7 @@ app.use(cors());
 //mounting
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
+app.use("/api/data",serviceRoute);
 
 app.use(errorMiddleware);
 
@@ -27,4 +29,3 @@ connectDB().then( () => {
 }).catch((err) => {
     console.log("error: " , err);
 });
-
