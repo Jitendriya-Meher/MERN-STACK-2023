@@ -13,7 +13,7 @@ const services = async ( req, res) => {
             });
         }
 
-        return res.status(404).json({
+        return res.status(200).json({
             msg:"services found successfully",
             data: response
         });
