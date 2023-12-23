@@ -47,12 +47,27 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    // to fetch the services data from the server
+    const [services, setServices] = useState([]);
+    const getServices = async () => {
+        try{
+            const res = await fetch('http://localhost:5000/api/data/service');
+            const data = await res.json();
+            // console.log("object",data);
+            setServices(data.data);
+        }   
+        catch(err){
+
+        }
+    }
+
     useEffect( () => {
         userAuthentication();
+        getServices();
     },[]);
 
 
-    return <AuthContext.Provider value={{storeTokenInLS, logOutUser, isLoggedIn, user}}>
+    return <AuthContext.Provider value={{storeTokenInLS, logOutUser, isLoggedIn, user,services}}>
         {children}
     </AuthContext.Provider>
 
