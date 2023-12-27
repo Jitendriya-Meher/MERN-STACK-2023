@@ -41,7 +41,7 @@ const authMiddleware = async(req,res,next) => {
         return res.status(500).json({
             msg:"error in token",
             error:err.message
-        })
+        });
     }
 };
 
